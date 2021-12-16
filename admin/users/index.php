@@ -87,7 +87,7 @@ $conn->close();
       <!-- page-body-wrapper ends -->
       <?php include '../inc/footer.php' ?>
     </div>
-    <?php ec_enqueue_js() ?>
+    
     
   </body>
 </html>

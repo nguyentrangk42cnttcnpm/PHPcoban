@@ -35,6 +35,7 @@ $sql = "UPDATE `users` SET username='$username', pass='$pass', role='$role'  WHE
 
 if ($conn->query($sql) === TRUE) {
 echo "Record updated successfully";
+header('location: index.php');
 } else {
 echo "Error updating record: " . $conn->error;
 }
@@ -73,9 +74,9 @@ $conn->close();
     </form>
 </div>
 </div>
-</div>
 <!-- page-body-wrapper ends -->
 <?php include '../inc/footer.php' ?>
     </div>
     <?php ec_enqueue_js() ?>
 </body>
+</html>

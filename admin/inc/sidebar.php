@@ -136,5 +136,77 @@
                 </ul>
             </div>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                <i class="menu-icon typcn typcn-document-add"></i>
+                <span class="menu-title">medical</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="medical/create.php"> create </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="medical/edit.php"> edit </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="medical/index.php"> index </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="medical/show.php"> show </a>
+                    </li>
+                  
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                <i class="menu-icon typcn typcn-document-add"></i>
+                <span class="menu-title">Customer</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="customers/create.php"> create </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customers/edit.php"> edit </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customers/index.php"> index </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customers/show.php"> show </a>
+                    </li>
+                  
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                <i class="menu-icon typcn typcn-document-add"></i>
+                <span class="menu-title">order details</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="orderdetails/create.php"> create </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="orderdetails/edit.php"> edit </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="orderdetails/index.php"> index </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="orderdetails/show.php"> show </a>
+                    </li>
+                  
+                </ul>
+            </div>
+        </li>
     </ul>
 </nav>

@@ -65,7 +65,7 @@ if ($conn->query($sql) === TRUE) {
                
         </div>
         <button type="submit" class="btn btn-success mr-2" name="create_user" value="Create">Submit</button>
-        <a href ="../index.php" class="btn btn-light">Cancel</a>
+        <a href ="index.php" class="btn btn-light">Cancel</a>
     </form>
 </div>
 </div>
