@@ -10,26 +10,16 @@
     <?php ec_enqueue_css() ?>
   </head>
   <body>
-<?php
-include '../../dbconnect.php';
-$stmt = $pdo->prepare('SELECT * from brands');
-$stmt->setFetchMode(PDO::FETCH_ASSOC);
-$stmt->execute();
-?>
+
+
 <!--hàm xóa -->
 
 <?php
-if(isset($_REQUEST['id']) and $_REQUEST['id']!=""){
+// Kết nối Database
+include '../connect.php';
 $id=$_GET['id'];
-$sql = "DELETE FROM brands WHERE id='$id'";
-if ($conn->query($sql) === TRUE) {
-echo "Xoá thành công!";
-} else {
-echo "Error updating record: " . $conn->error;
-}
-
-$conn->close();
-}
+$query=mysqli_query($conn,"select * from `brands` where id='$id'");
+$row=mysqli_fetch_assoc($query);
 ?>
 
     <div class="container-scroller">
@@ -62,15 +52,15 @@ $conn->close();
                       </thead>
                       <tbody>
                           <?php
-                          $i = 1;  
-                          while($row = $stmt->fetch()){ 
+                         $query=mysqli_query($conn,"select * from `brands`");
+                         while($row=mysqli_fetch_array($query)){
                               ?>
                         <tr>
-                          <td><?php echo $i++ ?></td>
-                          <td><?php echo $row['name'] ?></td>
-                          <td><?php echo $row['desc'] ?></td> 
+                          <td><?php echo $row['id']; ?></td>
+                          <td><?php echo $row['name']; ?></td>
+                          <td><?php echo $row['desc']; ?></td> 
                           <td><a class="btn btn-primary" href="edit.php?id=<?php echo $row['id']; ?>">Sửa</a></td> 
-                          <td><a class="btn btn-primary" href="index.php?id=<?php echo $row['id']?>">Xóa</a></td>     
+                          <td><a class="btn btn-primary" href="delete.php?id=<?php echo $row['id']?>">Xóa</a></td>     
                           <td><a class="btn btn-primary" href="show.php">Show</td>
                         </tr>    
                         <?php }?>
