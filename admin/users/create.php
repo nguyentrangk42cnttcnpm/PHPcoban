@@ -19,11 +19,11 @@ $row=mysqli_fetch_assoc($query);
 ?>
 <?php
 if (isset($_POST['create_user'])){
-    $id=$_GET['id'];
+    $id=$_POST['10'];
     $username=$_POST['username'];
     $pass=$_POST['pass'];
     $role=$_POST['role'];
-$sql = "INSERT INTO `users` VALUES (id='$id',username='$name',role='$role')";
+$sql = "INSERT INTO `users` VALUES ('10',username='$username',pass='$pass',role='$role')";
 if ($conn->query($sql) === TRUE) {
     echo "Record Create successfully";
     } else {
