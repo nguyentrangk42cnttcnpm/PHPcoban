@@ -1,102 +1,92 @@
-<?php
-include '../../dbconnect.php';
-$stmt = $pdo->prepare('SELECT * FROM brands');
-$stmt->setFetchMode(PDO::FETCH_ASSOC);
-$stmt->execute();
-?>
+<?php include '../functions.php' ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="../assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="../assets/vendors/iconfonts/ionicons/dist/css/ionicons.css">
-    <link rel="stylesheet" href="../assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.addons.css">
-    <!-- endinject -->
-    <!-- plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <link rel="stylesheet" href="../assets/css/shared/style.css">
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="../assets/css/demo_1/style.css">
-    <!-- End Layout styles -->
-    <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+    
+    <?php ec_enqueue_css() ?>
   </head>
-<body>
+  <body>
+<?php
+include '../../dbconnect.php';
+$stmt = $pdo->prepare('SELECT * from brands');
+$stmt->setFetchMode(PDO::FETCH_ASSOC);
+$stmt->execute();
+?>
+<!--hàm xóa -->
+
+<?php
+if(isset($_REQUEST['id']) and $_REQUEST['id']!=""){
+$id=$_GET['id'];
+$sql = "DELETE FROM brands WHERE id='$id'";
+if ($conn->query($sql) === TRUE) {
+echo "Xoá thành công!";
+} else {
+echo "Error updating record: " . $conn->error;
+}
+
+$conn->close();
+}
+?>
+
     <div class="container-scroller">
-        <!-- partial:./partials/_navbar.html -->
-        <?php require('../inc/header.php')?>
+      <!-- partial:partials/_navbar.html -->
+      <!-- begin header -->
+      <?php include '../inc/header.php' ?>
+       <!-- end header -->
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <!-- begin sidebar -->
+      <?php include '../inc/sidebar.php' ?>
         <!-- partial -->
-        <div class="container-fluid page-body-wrapper">
-            <!-- partial:./partials/_sidebar.html -->
-            <?php require('../inc/sidebar.php') ?>
-            <!-- partial -->
-            <div class="main-panel">
-                <div class="content-wrapper"> </div>
-                <div class="col-md-12 grid-margin">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                          <h4 class="card-title mb-0">Brands</h4>
-                          <a href="#"><small>Show All</small></a>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est quod cupiditate esse fuga</p>
-                        <div class="table-responsive">
-                          <table class="table table-striped table-hover">
-                            <thead>
-                              <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Desc</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                <?php 
-                    $stt = 0;
-                    while($row = $stmt->Fetch()){
-                        $stt++;
-                ?>
-                <tr>
-                    <td><?php echo $stt?></td>
-                    <td><?php echo $row['name']?></td>
-                    <td><?php echo $row['desc']?></td>
-                </tr>
-                <?php }?>
-            </tbody> 
-                          </table>
-                        </div>
-                      </div>
-                    </div>
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                  <h4 class="card-title">DANH SÁCH NHÃN HÀNG</h4>
+                  <a class="btn btn-primary" style = "margin-bottom:10px;" href="create.php">Thêm</a>
+                    <table class="table table-striped">
+                    <thead>
+                        <tr>
+                          <th>Số thứ tự</th>
+                          <th>Tên nhãn hàng</th>
+                          <th>Mô tả Nhãn hàng</th>
+                          <th>Chức năng</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <?php
+                          $i = 1;  
+                          while($row = $stmt->fetch()){ 
+                              ?>
+                        <tr>
+                          <td><?php echo $i++ ?></td>
+                          <td><?php echo $row['name'] ?></td>
+                          <td><?php echo $row['desc'] ?></td> 
+                          <td><a class="btn btn-primary" href="edit.php?id=<?php echo $row['id']; ?>">Sửa</a></td> 
+                          <td><a class="btn btn-primary" href="index.php?id=<?php echo $row['id']?>">Xóa</a></td>     
+                          <td><a class="btn btn-primary" href="show.php">Show</td>
+                        </tr>    
+                        <?php }?>
+                      </tbody>
+                    </table>
                   </div>
-                <!-- content-wrapper ends -->
-    <!-- partial:partials/_footer.html -->
-    <?php include_once('../../inc/footer.php') ?>
-    <!-- partial -->
+                </div>
+              </div>       
+            </div>
+          </div>
+        </div>      <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+      <?php include '../inc/footer.php' ?>
     </div>
-    <!-- main-panel ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
-    </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
-    <script src="../../assets/vendors/js/vendor.bundle.addons.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page-->
-    <!-- End plugin js for this page-->
-    <!-- inject:js -->
-    <script src="../../assets/js/shared/off-canvas.js"></script>
-    <script src="../../assets/js/shared/misc.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page-->
-    <script src="../../assets/js/demo_1/dashboard.js"></script>
-    <!-- End custom js for this page-->
-    <script src="../../assets/js/shared/jquery.cookie.js" type="text/javascript"></script>
-</body>
+    <?php ec_enqueue_js() ?>
+    
+  </body>
 </html>

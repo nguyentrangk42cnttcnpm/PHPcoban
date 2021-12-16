@@ -10,19 +10,14 @@
     <?php ec_enqueue_css() ?>
   </head>
   <body>
-<?php
-include '../../dbconnect.php';
-if(!isset($_GET['id'])){
-    echo 'spam';
-    die();
-}
-// đổ dữ liệu
-$brandId = $_GET['id'];
-$stmt = $pdo->prepare('SELECT * from brands where id = :id');    
-$stmt->setFetchMode(PDO::FETCH_ASSOC);
-$stmt->execute(array('id' => $brandId));
+  <?php
+// Kết nối Database
+include '../connect.php';
+$id=$_GET['id'];
+$query=mysqli_query($conn,"select * from `users` where id='$id'");
+$row=mysqli_fetch_assoc($query);
 ?>
-  <div class="container-scroller">
+    <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
       <!-- begin header -->
       <?php include '../inc/header.php' ?>
@@ -39,28 +34,30 @@ $stmt->execute(array('id' => $brandId));
         <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                  <h4 class="card-title">DANH SÁCH NHÃN HÀNG</h4>
-                  <a class="btn btn-primary" style = "margin-bottom:10px;" href="create.php">Thêm</a>
+                  <h4 class="card-title">USERS</h4>
+                  
                     <table class="table table-striped">
                     <thead>
                         <tr>
                           <th>Số thứ tự</th>
-                          <th>Tên nhãn hàng</th>
-                          <th>Mô tả Nhãn hàng</th>
-                      
+                          <th>username</th>
+                          <th>pass</th>
+                          <th>role</th>
+                          
                         </tr>
                       </thead>
                       <tbody>
-                          <?php
-                          $i = 1;  
-                          while($row = $stmt->fetch()){ 
-                              ?>
+                      <?php
+
+                        $query=mysqli_query($conn,"select * from `users`");
+                        while($row=mysqli_fetch_array($query)){
+                        ?>
                         <tr>
-                          <td><?php echo $i++ ?></td>
-                          <td><?php echo $row['name'] ?></td>
-                          <td><?php echo $row['desc'] ?></td> 
-                             
-                          
+                          <td><?php echo $row['id']; ?></td>
+                          <td><?php echo $row['username']; ?></td>
+                          <td><?php echo $row['pass']; ?></td> 
+                          <td><?php echo $row['role']; ?></td> 
+                       
                         </tr>    
                         <?php }?>
                       </tbody>
@@ -78,3 +75,4 @@ $stmt->execute(array('id' => $brandId));
     <?php ec_enqueue_js() ?>
     
   </body>
+</html>
