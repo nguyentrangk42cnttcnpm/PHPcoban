@@ -80,7 +80,7 @@
                         <a class="nav-link" href="categories/edit.php">Edit</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="categorie/index.php">index</a>
+                        <a class="nav-link" href="categories/index.php">index</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="categories/show.php">Show</a>

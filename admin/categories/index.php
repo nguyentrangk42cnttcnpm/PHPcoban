@@ -1,54 +1,87 @@
-<?php
-include '../../dbconnect.php';
-$stmt = $pdo->prepare('SELECT * FROM categories');
-$stmt->setFetchMode(PDO::FETCH_ASSOC);
-$stmt->execute();
-?>
+<?php include '../functions.php' ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>Categories</title>
+  <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-					
-	<link rel="preload" as="style" type="text/css" href="//bizweb.dktcdn.net/100/309/802/themes/655372/assets/bootstrap.scss.css?1638333101085" onload="this.rel='stylesheet'" />
-	<link href="//bizweb.dktcdn.net/100/309/802/themes/655372/assets/bootstrap.scss.css?1638333101085" rel="stylesheet" type="text/css" />
-	<link rel="preload" as="style" type="text/css" href="//bizweb.dktcdn.net/100/309/802/themes/655372/assets/base.scss.css?1638333101085" onload="this.rel='stylesheet'" />
-	<link href="//bizweb.dktcdn.net/100/309/802/themes/655372/assets/base.scss.css?1638333101085" rel="stylesheet" type="text/css" />			
-	<link rel="preload" as="style" type="text/css" href="//bizweb.dktcdn.net/100/309/802/themes/655372/assets/ant-noi-that.scss.css?1638333101085" onload="this.rel='stylesheet'" />
-	<link href="//bizweb.dktcdn.net/100/309/802/themes/655372/assets/ant-noi-that.scss.css?1638333101085" rel="stylesheet" type="text/css" />		
-	<link rel="preload" as="script" href="//bizweb.dktcdn.net/100/309/802/themes/655372/assets/jquery-2.2.3.min.js?1638333101085" />
-	<script src="//bizweb.dktcdn.net/100/309/802/themes/655372/assets/jquery-2.2.3.min.js?1638333101085" type="text/javascript"></script>		
-</head>
-<body>
-    <div class="row py-5">
-		<div class="col-lg-9 mx-auto text-black text-center">
-			<h1 class="display-4">Danh sách</h1>
-		</div>
-	</div>
-    <div class="container"> 
-        <table class="table table-borderless table-hover">
-            <thead style="background-color:	#FFCC00;">
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    while($row = $stmt->Fetch()){
-                ?>
-                <tr>
-                    <td><?php echo $row['id']?></td>
-                    <td><?php echo $row['name']?></td>
-                </tr>
-                <?php }?>
-            </tbody>       
-        </table>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
+    
+    <?php ec_enqueue_css() ?>
+  </head>
+  <body>
+
+  <!--hàm xóa -->
+  <?php
+require '../connect.php';
+if(isset($_REQUEST['id']) and $_REQUEST['id']!=""){
+$id=$_GET['id'];
+$sql = "DELETE FROM categories WHERE id='$id'";
+if ($conn->query($sql) === TRUE) {
+echo "Xoá thành công!";
+header('location: index.php');
+} else {
+echo "Error updating record: " . $conn->error;
+}
+
+$conn->close();
+}
+?>
+
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <!-- begin header -->
+      <?php include '../inc/header.php' ?>
+       <!-- end header -->
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <!-- begin sidebar -->
+      <?php include '../inc/sidebar.php' ?>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                  <h4 class="card-title">DANH SÁCH CATEGORIES</h4>
+                  <a class="btn btn-primary" style = "margin-bottom:10px;" href="create.php">Thêm</a>
+                    <table class="table table-striped">
+                    <thead>
+                        <tr>
+                          <th>Số thứ tự</th>
+                          <th>Tên Categories</th>
+                    
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <?php
+                         $query=mysqli_query($conn,"select * from `categories`");
+                         while($row=mysqli_fetch_array($query)){
+                              ?>
+                        <tr>
+                          <td><?php echo $row['id']; ?></td>
+                          <td><?php echo $row['name']; ?></td>
+                      
+                          <td><a class="btn btn-primary" href="edit.php?id=<?php echo $row['id']; ?>">Sửa</a></td> 
+                          <td><a class="btn btn-primary" href="delete.php?id=<?php echo $row['id']?>">Xóa</a></td>     
+                          <td><a class="btn btn-primary" href="show.php">Show</td>
+                        </tr>    
+                        <?php }?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>       
+            </div>
+          </div>
+        </div>      <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+      <?php include '../inc/footer.php' ?>
     </div>
-</body>
+    <?php ec_enqueue_js() ?>
+    
+  </body>
 </html>
